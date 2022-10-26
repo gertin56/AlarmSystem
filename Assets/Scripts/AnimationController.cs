@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 
 public class AnimationController : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
     private Vector2 _previousPosition;
+    private int _speed = Animator.StringToHash("Speed");
 
     private void OnEnable()
     {
@@ -27,11 +29,11 @@ public class AnimationController : MonoBehaviour
 
         if(_previousPosition == currentPosition)
         {
-            _animator.SetFloat("Speed", 0);
+            _animator.SetFloat(_speed, 0);
         }
         else
         {
-            _animator.SetFloat("Speed", 5);
+            _animator.SetFloat(_speed, 5);
         }
 
         _previousPosition = currentPosition;
