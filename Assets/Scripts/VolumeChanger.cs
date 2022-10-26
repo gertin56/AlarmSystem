@@ -10,7 +10,6 @@ public class VolumeChanger : MonoBehaviour
 
     private AudioSource _audioSource;
     private bool _isIncreases = false;
-    private bool _isDecreases = false;
     private Coroutine _increaseVolumeCorutine;
     private Coroutine _decreaseVolumeCorutine;
     private float _minVolume = 0f;
@@ -24,7 +23,7 @@ public class VolumeChanger : MonoBehaviour
 
     public void StartIncreaseVolume()
     {
-        if (_isDecreases)
+        if (_isIncreases == false && _decreaseVolumeCorutine != null)
         {
             StopCoroutine(_decreaseVolumeCorutine);
         }
@@ -34,7 +33,7 @@ public class VolumeChanger : MonoBehaviour
 
     public void StartDecreaseVolume()
     {
-        if (_isIncreases)
+        if (_isIncreases == true && _increaseVolumeCorutine != null)
         {
             StopCoroutine(_increaseVolumeCorutine);
         }
@@ -45,7 +44,6 @@ public class VolumeChanger : MonoBehaviour
     private IEnumerator IncreaseVolume()
     {
         _isIncreases = true;
-        _isDecreases = false;
 
         while (_currentVolume < _maxVolume)
         {
@@ -58,7 +56,6 @@ public class VolumeChanger : MonoBehaviour
     private IEnumerator DecreaseVolume()
     {
         _isIncreases = false;
-        _isDecreases = true;
 
         while (_currentVolume > _minVolume)
         {
